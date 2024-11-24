@@ -1,0 +1,20 @@
+***** Navigate to project that has docker file *****
+cd path/to/my-docker-project
+
+***** Build docker image *****
+docker build -t my-custom-image .
+
+***** verify images *****
+docker images
+
+**** Run the docker image *****
+docker run --rm -it dockerfile
+
+***** Run the docker image to get logs outside image *****
+docker run --rm -v $(pwd)/logs:/tests/logs dockerfile
+
+
+
+
+
+

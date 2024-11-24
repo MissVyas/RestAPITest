@@ -1,0 +1,44 @@
+Here are couple of exercises which are meant to be implemented using Python and Robot Framework.
+
+1. Python exercise: 
+   Please see attached logfile (bs_log.txt) which is a log from eNodeB. Idea here is to use Python code to find logs indicating if MSG3 (RRC Connection Request)
+   is received succesfully by eNB. Task would be to parse out the MSG3 result from the log and calculate Success rate out of it.
+   Success rate is calculated in general as formula: Success Rate Percentage = (Amount of Success / (Amount of failures + Amount of Success)) * 100
+
+Hint: Below log rows indicate a Success for MSG3 or a failure
+
+2023-08-21 09:30:19 404,756 [4] <UL TB   >  RNTI   261 eNB-ID   N/A S-TMSI          N/A SC-U 20 type MSG3-RRC-C-REQ status success MCS-DU   4   2 TBS-DU   32   11 REP-CDU    1    1    1 RSSI-DU    N/A  -23.4 SINR-DU    N/A   46.0 PRACH  TA    134 FRQ-OFF      9.3 RSSI  -14.4 SINR   53.3
+
+2023-08-21 12:26:02 162,007 [4] <UL TB   >  RNTI   264 eNB-ID   N/A S-TMSI          N/A SC-U 33 type   MSG3-UNKNOWN status timeout MCS-DU   4   2 TBS-DU   32   11 REP-CDU    1    1    1 RSSI-DU    N/A  -68.3 SINR-DU    N/A   -5.4 PRACH  TA    102 FRQ-OFF    683.0 RSSI  -63.8 SINR    4.6
+
+NOTE! As a bonus success rate could be calculated as per hourly success rate.
+
+
+2. Robot framework exercise
+
+   Make at least two API tests using Robot framework for following API:
+   https://ssd-api.jpl.nasa.gov/doc/cad.html   
+   
+   No need to parse and understand the data but good idea is to check that proper data is returned by the query to verify that API works 
+   normally and does not return error or null data. 
+   
+   Implementation should be made so that the tests and the framework implementation can be shared easily so please use docker or other automation 
+   approach to implement the tests so that any user can easily use it withouth need to first install robot framework and required dependenciesz.
+   As an example the tests could be ran in a docker container or using python venv etc..
+   
+   NOTE! Save the log outside of a container in case using container or it could be uploaded / published outside of the container.
+   
+3. Combine Python and Robot
+
+   Task would be to combine the Python code from exercise number 1 and combine the robot implementation from Exercise number 2 to make one more Robot test.
+   Test should have following characteristics:
+   
+   - Have a variable which is passed to the Python Success rate calculation logic to define which log file the Python code will use.
+   - Have a second variable which defines the success rate PASS/FAIL criteria.
+   - During when this new robot test is ran it will pass above two variables from Robot into the Python code logic and robot test will PASS 
+     in case the success rate is above the success rate PASS/FAIL criteria variable.
+	 So in practice the Robot will be using the customized Python logic as library and be able to call the keyword from the customized library. Testcase 
+	 will PASS if the success rate from the variable defined log file is above the criteria defined by the success rate PASS/FAIL criteria.
+	 Otherwise testcase should FAIL. 
+	 
+    Please see as part of the files, bs_log2.txt which can be used to test the success rate test case with different log -files.

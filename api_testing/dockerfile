@@ -1,0 +1,19 @@
+# Use Python as base image
+FROM python:3.10-slim
+
+# Install necessary tools
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Robot Framework and dependencies
+RUN pip install --no-cache-dir robotframework requests robotframework-requests
+
+# Set working directory
+WORKDIR /tests
+
+# Copy test files to the container
+COPY test_suites/ ./test_suites
+
+# Default command to run the tests
+CMD ["robot", "--outputdir", "/tests/logs", "test_suites/nasa_api_test.robot"]
